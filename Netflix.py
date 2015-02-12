@@ -80,6 +80,7 @@ def evaluate_rating(e_rating) :
 
 def netflix_eval (json, i) :
     estimated_rating = (get_user_period_avg(json, i) + current_movie_rating_avg)/2
+    #estimated_rating = (get_user_avg_rating(json, i) + current_movie_rating_avg)/2
     return estimated_rating
 
 # -------------
