@@ -58,6 +58,20 @@ def get_user_period_avg (customer_json, customer_id) :
     else: 
         return get_user_avg_rating(customer_json, customer_id)
 
+def average_factor (customer_json, customer_id):
+    """
+        hypothesis: if the overall average is lower for large counts then the factor should be < 0, else > 1
+        
+        small improvement from 0.9741 to 0.9631
+    """
+    avg = customer_json[customer_id]["average"]
+    if(avg > 4):
+        return 1.1
+    elif(avg > 3.5):
+        return 1.05
+    else:
+        return 0.95
+
 # -----------------
 # evaluating rating
 # -----------------
@@ -98,10 +112,10 @@ def netflix_eval (json, i) :
     """
         Evaluate the estimated rating for a user
     """
-    estimated_rating = (get_user_period_avg(json, i) + current_movie_rating_avg)/2
-    #estimated_rating = (get_user_avg_rating(json, i) + current_movie_rating_avg)/2
-    return estimated_rating
-
+    estimated_rating_based_on_period = (get_user_period_avg(json, i) + current_movie_rating_avg)/2
+    estimated_rating_factoring_in_count_average = estimated_rating_based_on_period * average_factor(json, i)
+    return estimated_rating_factoring_in_count_average
+    #return estimated_rating_based_on_period
 # -------------
 # netflix_print
 # -------------
