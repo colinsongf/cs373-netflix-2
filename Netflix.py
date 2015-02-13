@@ -9,7 +9,7 @@
 import json
 from math import sqrt
 
-PRINT=False
+PRINT=True
 
 # ------------
 # netflix_read
@@ -29,11 +29,11 @@ def netflix_read (movie_json, s) :
 # ------------
 
 def read_customer_json () :
-    customer_cache_file = "/u/kk8/CS373/p2/cs373-netflix/cache.json"
+    customer_cache_file = "cache.json"
     return json.loads(open(customer_cache_file).read())
 
 def read_movie_json () :
-    movie_cache_file = "/u/kk8/CS373/p2/cs373-netflix/moviecache.json"
+    movie_cache_file = "moviecache.json"
     return json.loads(open(movie_cache_file).read())
 
 def get_movie_avg_rating (movie_json) :
@@ -67,11 +67,27 @@ def rmse (e, c) :
     return sqrt(v / len(e))
 
 def evaluate_rating(e_rating) :
+    """
+        Evaluate the accuracy of the rating by calculating the rmse for
+        the expected rating and the correct (actual) rating
+
+    """
+    #correct_ratings = open("correct_sample.txt")
     correct_ratings = open("/u/mck782/netflix-tests/jms6879-expected-ratings.txt")
     c_rating = []
     for line in correct_ratings:  
         if ":" not in line:
             c_rating.append(float(line.strip()))
+
+    """
+    print("Correct ratings:")
+    for c in c_rating:
+        print(c)
+
+    print("Evaluated readings")
+    for e in e_rating:
+        print(e)
+    """
     return rmse(e_rating, c_rating)
 
 # ------------
@@ -79,6 +95,9 @@ def evaluate_rating(e_rating) :
 # ------------
 
 def netflix_eval (json, i) :
+    """
+        Evaluate the estimated rating for a user
+    """
     estimated_rating = (get_user_period_avg(json, i) + current_movie_rating_avg)/2
     #estimated_rating = (get_user_avg_rating(json, i) + current_movie_rating_avg)/2
     return estimated_rating
@@ -103,6 +122,7 @@ def netflix_solve (r, w) :
     customer_json = read_customer_json()
     movie_json = read_movie_json()
     e_rating = []
+    
     for s in r :
         user = netflix_read(movie_json, s)
         if user is not -1 :
@@ -111,5 +131,7 @@ def netflix_solve (r, w) :
             netflix_print(w, str(rating))
         else:
             netflix_print(w, str(current_movie)+":")
-    print("Done")
+
+
+
     print(evaluate_rating(e_rating))
