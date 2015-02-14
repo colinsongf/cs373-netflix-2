@@ -82,10 +82,13 @@ for c, data in customer_cache.iteritems():
 
 			c_.add(c)
 
-""" Start pairing movies to customers """
+""" Start pairing movies to customers n^n^n^n. I'd be fired for writing this. They should just stick this data in a sql db so we can just make joins instead! """
+for m in m_:
+	padding = 7 - len(m)
+	filename = "mv_" + "0"*padding + m + ".txt"
+	#for c in c_:
 
-for x in c_:
-	print(x)
+
 """
 filename = "RunNetflix.in"
 f = open(filename, 'w')
