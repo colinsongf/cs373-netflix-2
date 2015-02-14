@@ -96,15 +96,6 @@ def evaluate_rating(e_rating) :
         if ":" not in line:
             c_rating.append(float(line.strip()))
 
-    """
-    print("Correct ratings:")
-    for c in c_rating:
-        print(c)
-
-    print("Evaluated readings")
-    for e in e_rating:
-        print(e)
-    """
     return rmse(e_rating, c_rating)
 
 # ------------
