@@ -7,11 +7,16 @@
 # cases and writing them to RunNetflix.in
 # -----------------------------
 
+# ----------
+#  imports
+# ----------
+import json
+
 customer_cache_file = "caches/cache.json"
-customer_cache = json.loads(open(customer_cache_file).read())
+customer_cache = json.load(open(customer_cache_file))
 
 movie_cache_file = "caches/moviecache.json"
-movie_cache = json.loads(open(movie_cache_file).read())
+movie_cache = json.load(open(movie_cache_file))
 
 """
 	m : movie id
@@ -35,11 +40,55 @@ movie_cache = json.loads(open(movie_cache_file).read())
 
 """
 
+"""
+	m_c : dictionary to write to RunNetflix.in
+		  formatted as {movie_id{ customer_id, customer_id, ...}, movie_id{customer_id, ...}, ...}
 
+		  1. Gather movie edge cases
+		  2. Gather user edge cases
+		  3. Pair them accordingly in m_c
+"""
+m_c = {}
+m_ = set()
+c_ = set()
+
+""" Start movie search """
+for m, _ in movie_cache.iteritems():
+	avg = movie_cache[m]["average"] 
+	count = movie_cache[m]["count"] 
+	if( avg >= 4.7): #found: 14961, 7057, 7230
+		#m_c[m] = {}
+		m_.add(m);		
+	elif(avg <= 1.3): #found: 515
+		m_.add(m)
+		#m_c[m] = {}
+	elif(round(avg, 1) == 3.7): #found: ... 342, 11916, 13162, 8907, 15394, 9937, 715, ...
+		m_.add(m)
+		#m_c[m] = {}
+	if(count < 10): #found: 13755, 11148
+		m_.add(m)
+		#m_c[m] = {}
+
+""" Start customer search """
+for c, data in customer_cache.iteritems():
+	avg = customer_cache[c]["average"] 
+	count = customer_cache[c]["count"] 
+	if(count == 1): #way too many results
+		c_.add(c) 
+	elif(count >= 10000): #found: 305344, 2439493, 387418, 2118461, 1664010
+		c_.add(c)
+	for key, value in data.iteritems():
+		if(key[0].isdigit() and value[1] == 1):
+
+			c_.add(c)
+
+""" Start pairing movies to customers """
+
+for x in c_:
+	print(x)
+"""
 filename = "RunNetflix.in"
 f = open(filename, 'w')
-
-m_c = {}
 
 for m, c_data in m_c:
 	f.write(str(m) + ":\n")
@@ -47,3 +96,4 @@ for m, c_data in m_c:
 		f.write(str(c) + "\n")
 
 f.close()
+"""
