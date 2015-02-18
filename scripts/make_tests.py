@@ -12,10 +12,10 @@
 # ----------
 import json
 
-customer_cache_file = "caches/cache.json"
+customer_cache_file = "../caches/cache.json"
 customer_cache = json.load(open(customer_cache_file))
 
-movie_cache_file = "caches/moviecache.json"
+movie_cache_file = "../caches/moviecache.json"
 movie_cache = json.load(open(movie_cache_file))
 
 """
@@ -83,20 +83,30 @@ for c, data in customer_cache.iteritems():
 			c_.add(c)
 
 """ Start pairing movies to customers n^n^n^n. I'd be fired for writing this. They should just stick this data in a sql db so we can just make joins instead! """
+filename = "RunNetflix.in"
+fnwrite = open(filename, 'w')
+
 for m in m_:
 	padding = 7 - len(m)
-	filename = "mv_" + "0"*padding + m + ".txt"
-	#for c in c_:
+	movie_file = "/u/downing/cs/netflix/training_set/mv_" + "0"*padding + m + ".txt"
+	f = open(movie_file)
+	movie = f.readline() #pass over the movie
 
+	fnwrite.write(str(m) + ":\n") # Write movie name to file
+	#m_c[m] = set()
+	for line in f:
+		line = line.strip()
+		d = line.split(",")
+		if d[0] in c_:
+			fnwrite.write(str(d[0]) + "\n")
+			#m_c[m].add(d[0])
+	f.close()
 
 """
-filename = "RunNetflix.in"
-f = open(filename, 'w')
-
 for m, c_data in m_c:
 	f.write(str(m) + ":\n")
 	for c in c_data:
 		f.write(str(c) + "\n")
-
-f.close()
 """
+
+fnwrite.close()
