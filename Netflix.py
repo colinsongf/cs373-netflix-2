@@ -16,32 +16,65 @@ PRINT=True
 # ------------
 
 def netflix_read (movie_json, s) :
+    """
+    Read line, determine movie or user
+    Input: movie_json a pre computed file with information about all the movies, s a string
+    Return: Tuple for a movie (-1, movie_details) and for a used (user_id, -1)
+    """
     if ":" in s :
         current_movie = int(s.split(":")[0])
         assert current_movie > 0
         assert current_movie <= 17770
-        movie_details = get_movie_avg_rating(movie_json, current_movie)
+        movie_details = get_movie_details(movie_json, current_movie)
         return (-1, movie_details)
-    else:
+    else :
         return (s.strip(), -1)
 
-# ------------
-# data_collection
-# ------------
+# ------------------
+# read_customer_json
+# ------------------
 
 def read_customer_json () :
+    """
+    Loads the user_cache created by kk24268
+    Return: dictionary of the user_cache
+    """
     customer_cache_file = "caches/cache.json"
     return json.loads(open(customer_cache_file).read())
 
+# ------------------
+# read_answer_json
+# ------------------
+
+def read_answer_json () :
+    """
+    Loads the answer_cache created by kk24268
+    Return: dictionary of the answer_cache
+    """
+    answer_cache_file = "/u/kk8/CS373/p2/netflix-tests/pma459-answersCache.json"
+    return json.loads(open(answer_cache_file).read())
+# ---------------
+# read_movie_json
+# ---------------
+
 def read_movie_json () :
+    """
+    Loads the movie_cache created by kk24268
+    Return: dictionary of the movie_cache
+    """
     movie_cache_file = "caches/moviecache.json"
     return json.loads(open(movie_cache_file).read())
 
-def get_movie_avg_rating (movie_json, current_movie) :
-    '''
-        Gets the average rating for a single movie
-        Return: tuple with current movie, rating average and period
-    '''
+# -----------------
+# get_movie_details
+# -----------------
+
+def get_movie_details (movie_json, current_movie) :
+    """
+    Gets movie's average rating and period 
+    Input: movie_jdon containing the cache, current_movie int of the current movie
+    Return: tuple with current movie, rating average and period
+    """
     assert str(current_movie) in movie_json
     assert "average" in movie_json[str(current_movie)]
     assert "period" in movie_json[str(current_movie)]
@@ -51,38 +84,57 @@ def get_movie_avg_rating (movie_json, current_movie) :
     assert len(movie_detail) == 3
     return movie_detail
 
+# -------------------
+# get_user_avg_rating
+# -------------------
+
 def get_user_avg_rating (customer_json, customer_id) : 
-    '''
-        Gets the average rating of all the movies rated by the user
-        input: customer_id String  
-    '''
+    """
+    Gets the average rating of all the movies rated by the user
+    Input: customer_json the cache of the users, customer_id string of the user  
+    Return: average customer rating
+    """
     assert customer_id in customer_json
     assert "average" in customer_json[customer_id]
     return customer_json[customer_id]["average"]
 
+# -------------------
+# get_user_period_avg
+# -------------------
+
 def get_user_period_avg (customer_json, customer_id, movie_detail) :
+    """
+    Gets the average rating of all the movies rated by the user in the period or calls get_user_avg_rating if period doesn't exist
+    Input: customer_json the cache of the users, customer_id string of the user, movie_detail 
+    Return: average customer rating of period/user
+    """
     assert len(movie_detail) == 3
     assert customer_id in customer_json
-    if movie_detail[2] in customer_json[customer_id]:
+    if movie_detail[2] in customer_json[customer_id] :
         return customer_json[customer_id][movie_detail[2]][0]
-    else: 
+    else : 
         return get_user_avg_rating(customer_json, customer_id)
 
-def average_factor (customer_json, customer_id):
+# --------------
+# average_factor
+# --------------
+
+def average_factor (customer_json, customer_id) :
     """
-        hypothesis: if the overall average is lower for large counts then the factor should be < 0, else > 1
-        
-        small improvement from 0.9741 to 0.9598
+    Idea: if the overall average is lower for large counts then the factor should be < 0, else > 1
+    Input: customer_json the cache of users 
+    Return: averaging factor based on prior study
     """
+    # improvement from 0.9741 to 0.9598
     assert customer_id in customer_json
     avg = customer_json[customer_id]["average"]
-    if(avg > 4):
+    if(avg > 4) :
         return 1.08
-    elif(avg > 3.60):
+    elif(avg > 3.60) :
         return 1.03
-    elif(avg > 3.50):
+    elif(avg > 3.50) :
         return 1.0
-    else:
+    else :
         return 0.98
 
 # -----------------
@@ -90,23 +142,28 @@ def average_factor (customer_json, customer_id):
 # -----------------
 
 def rmse (e, c) :
+    """
+    Calculates the root mean square error between two lists
+    Input: e list, c list
+    Return: rmse float
+    """
     assert len(e) == len(c)
     return sqrt(mean(square(subtract(e,c))))
 
-def evaluate_rating(e_rating) :
-    """
-        Evaluate the accuracy of the rating by calculating the rmse for
-        the expected rating and the correct (actual) rating
+# ----------
+# get_answer
+# ----------
 
+def get_answer (answer_json, customer_id, movie) :
     """
-    correct_ratings = open("/u/kk8/CS373/p2/netflix-tests/jms6879-expected-ratings.txt")
-    #correct_ratings = open("/u/mck782/netflix-tests/jms6879-expected-ratings.txt")
-    c_rating = []
-    for line in correct_ratings:  
-        if ":" not in line:
-            c_rating.append(float(line.strip()))
+    Collects the correct answer from the answers_cache
+    Input: answer_json cache of the answers, customer_id int, movie int
+    Return: rating
+    """
+    assert str(movie) in answer_json
+    assert str(customer_id) in answer_json[str(movie)], "ERROR "+ str(customer_id) +" "+  str(movie)
+    return answer_json[str(movie)][str(customer_id)]
 
-    return rmse(e_rating, c_rating)
 
 # ------------
 # netflix_eval
@@ -114,7 +171,9 @@ def evaluate_rating(e_rating) :
 
 def netflix_eval (json, i, movie_detail) :
     """
-        Evaluate the estimated rating for a user
+    Evaluate the estimated rating for a user
+    Input: json  with the user information, customer_id, movie detail - tuple
+    Return: estimated rating 
     """
     assert len(movie_detail) == 3
     estimated_rating_based_on_period = (get_user_period_avg(json, i, movie_detail) + movie_detail[1])/2
@@ -126,6 +185,10 @@ def netflix_eval (json, i, movie_detail) :
 # -------------
 
 def netflix_print (w, s) :
+    """
+    Print string in writer
+    Input: w writer, s string
+    """
     if (PRINT):
         w.write(s + "\n")
 
@@ -135,17 +198,20 @@ def netflix_print (w, s) :
 
 def netflix_solve (r, w) :
     """
-    r a reader
-    w a writer
+    Main function solver
+    Input: r a reader, w a writer
     """
     customer_json = read_customer_json()
     movie_json = read_movie_json()
+    answer_json = read_answer_json()
     e_rating = []
+    c_rating = []
     movie_detail = ()
     for s in r :
         user = netflix_read(movie_json, s)
         if user[0] is not -1 :
             rating = netflix_eval(customer_json, user[0], movie_detail)
+            c_rating.append(get_answer(answer_json, user[0], movie_detail[0]))
             e_rating.append(rating)
             netflix_print(w, str(rating))
         else:
@@ -154,4 +220,4 @@ def netflix_solve (r, w) :
 
 
 
-    print(evaluate_rating(e_rating))
+    print(rmse(e_rating, c_rating))
