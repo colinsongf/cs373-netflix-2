@@ -51,7 +51,7 @@ def read_answer_json () :
     Loads the answer_cache created by kk24268
     Return: dictionary of the answer_cache
     """
-    answer_cache_file = "/u/kk8/CS373/p2/netflix-tests/pma459-answersCache.json"
+    answer_cache_file = "caches/pma459-answersCache.json"
     return json.loads(open(answer_cache_file).read())
 # ---------------
 # read_movie_json

@@ -19,7 +19,7 @@ movie_cache_file = "../caches/moviecache.json"
 movie_cache = json.load(open(movie_cache_file))
 
 answer_cache_file = "../caches/pma459-answersCache.json"
-answer_cache = json.loads(open(answer_cache_file).read())
+answer_cache = json.load(open(answer_cache_file))
 
 """
 	m : movie id
@@ -100,7 +100,7 @@ for m in m_:
 	for line in f:
 		line = line.strip()
 		d = line.split(",")
-		if d[0] in c_ and str(d[0]) in answer_cache[m]:
+		if d[0] in c_ and str(d[0]) and m in answer_cache and str(d[0]) in answer_cache[m]:
 			fnwrite.write(str(d[0]) + "\n")
 			#m_c[m].add(d[0])
 	f.close()
