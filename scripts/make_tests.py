@@ -2,7 +2,7 @@
 
 # -----------------------------
 # scripts/make_tests.py
-# 
+#
 # Script used for finding edge
 # cases and writing them to RunNetflix.in
 # -----------------------------
@@ -18,11 +18,14 @@ customer_cache = json.load(open(customer_cache_file))
 movie_cache_file = "../caches/moviecache.json"
 movie_cache = json.load(open(movie_cache_file))
 
+answer_cache_file = "../caches/pma459-answersCache.json"
+answer_cache_ = json.load(open(answer_cache_file))
+
 """
 	m : movie id
 	c : customer id
 
-	Edge cases : 
+	Edge cases :
 		Extreme users - users who give very high ratings
 					  - users who give very low ratings
 					  - users who only rated a few times
@@ -34,8 +37,8 @@ movie_cache = json.load(open(movie_cache_file))
 					   - movies that have 5.0 ratings
 					   - movies that have 1.0 ratings
 					   - movies that are at 3.7 (overall rating average for the given data set) ratings
-	
-	Valid test cases? : 
+
+	Valid test cases? :
 		Can we inquire about a user who has previously rated the movie?
 
 """
@@ -54,11 +57,11 @@ c_ = set()
 
 """ Start movie search """
 for m, _ in movie_cache.iteritems():
-	avg = movie_cache[m]["average"] 
-	count = movie_cache[m]["count"] 
+	avg = movie_cache[m]["average"]
+	count = movie_cache[m]["count"]
 	if( avg >= 4.7): #found: 14961, 7057, 7230
 		#m_c[m] = {}
-		m_.add(m);		
+		m_.add(m);
 	elif(avg <= 1.3): #found: 515
 		m_.add(m)
 		#m_c[m] = {}
@@ -71,10 +74,10 @@ for m, _ in movie_cache.iteritems():
 
 """ Start customer search """
 for c, data in customer_cache.iteritems():
-	avg = customer_cache[c]["average"] 
-	count = customer_cache[c]["count"] 
+	avg = customer_cache[c]["average"]
+	count = customer_cache[c]["count"]
 	if(count == 1): #way too many results
-		c_.add(c) 
+		c_.add(c)
 	elif(count >= 10000): #found: 305344, 2439493, 387418, 2118461, 1664010
 		c_.add(c)
 	for key, value in data.iteritems():
@@ -97,7 +100,7 @@ for m in m_:
 	for line in f:
 		line = line.strip()
 		d = line.split(",")
-		if d[0] in c_:
+		if d[0] in c_ and d[0] in answer_cache[m]:
 			fnwrite.write(str(d[0]) + "\n")
 			#m_c[m].add(d[0])
 	f.close()
