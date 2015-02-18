@@ -7,7 +7,7 @@
 # -----------------------------
 
 import json
-from math import sqrt
+from numpy import mean, sqrt, square, subtract
 
 PRINT=True
 
@@ -18,6 +18,8 @@ PRINT=True
 def netflix_read (movie_json, s) :
     if ":" in s :
         current_movie = int(s.split(":")[0])
+        assert current_movie > 0
+        assert current_movie <= 17770
         movie_details = get_movie_avg_rating(movie_json, current_movie)
         return (-1, movie_details)
     else:
@@ -40,18 +42,27 @@ def get_movie_avg_rating (movie_json, current_movie) :
         Gets the average rating for a single movie
         Return: tuple with current movie, rating average and period
     '''
+    assert str(current_movie) in movie_json
+    assert "average" in movie_json[str(current_movie)]
+    assert "period" in movie_json[str(current_movie)]
     current_movie_rating_avg = movie_json[str(current_movie)]["average"]
     current_movie_period = movie_json[str(current_movie)]["period"]
-    return (current_movie, current_movie_rating_avg, current_movie_period)
+    movie_detail = (current_movie, current_movie_rating_avg, current_movie_period)
+    assert len(movie_detail) == 3
+    return movie_detail
 
 def get_user_avg_rating (customer_json, customer_id) : 
     '''
         Gets the average rating of all the movies rated by the user
         input: customer_id String  
     '''
+    assert customer_id in customer_json
+    assert "average" in customer_json[customer_id]
     return customer_json[customer_id]["average"]
 
 def get_user_period_avg (customer_json, customer_id, movie_detail) :
+    assert len(movie_detail) == 3
+    assert customer_id in customer_json
     if movie_detail[2] in customer_json[customer_id]:
         return customer_json[customer_id][movie_detail[2]][0]
     else: 
@@ -63,7 +74,7 @@ def average_factor (customer_json, customer_id):
         
         small improvement from 0.9741 to 0.9598
     """
-
+    assert customer_id in customer_json
     avg = customer_json[customer_id]["average"]
     if(avg > 4):
         return 1.08
@@ -79,8 +90,8 @@ def average_factor (customer_json, customer_id):
 # -----------------
 
 def rmse (e, c) :
-    v = sum(map(lambda x, y : (x - y) ** 2, e, c))
-    return sqrt(v / len(e))
+    assert len(e) == len(c)
+    return sqrt(mean(square(subtract(e,c))))
 
 def evaluate_rating(e_rating) :
     """
@@ -88,8 +99,8 @@ def evaluate_rating(e_rating) :
         the expected rating and the correct (actual) rating
 
     """
-    #correct_ratings = open("correct_sample.txt")
-    correct_ratings = open("/u/mck782/netflix-tests/jms6879-expected-ratings.txt")
+    correct_ratings = open("/u/kk8/CS373/p2/netflix-tests/jms6879-expected-ratings.txt")
+    #correct_ratings = open("/u/mck782/netflix-tests/jms6879-expected-ratings.txt")
     c_rating = []
     for line in correct_ratings:  
         if ":" not in line:
@@ -105,7 +116,7 @@ def netflix_eval (json, i, movie_detail) :
     """
         Evaluate the estimated rating for a user
     """
-
+    assert len(movie_detail) == 3
     estimated_rating_based_on_period = (get_user_period_avg(json, i, movie_detail) + movie_detail[1])/2
     estimated_rating_factoring_in_count_average = estimated_rating_based_on_period * average_factor(json, i)
     return estimated_rating_factoring_in_count_average
