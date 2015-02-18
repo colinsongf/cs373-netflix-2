@@ -148,7 +148,7 @@ def rmse (e, c) :
     Return: rmse float
     """
     assert len(e) == len(c)
-    return sqrt(mean(square(subtract(e,c))))
+    return round(sqrt(mean(square(subtract(e,c)))), 2)
 
 # ----------
 # get_answer
@@ -220,4 +220,4 @@ def netflix_solve (r, w) :
 
 
 
-    print(rmse(e_rating, c_rating))
+    netflix_print(w, "RMSE: "+ str(rmse(e_rating, c_rating)))
