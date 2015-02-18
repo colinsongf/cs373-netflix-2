@@ -214,7 +214,7 @@ def netflix_solve (r, w) :
             rating = netflix_eval(customer_json, user[0], movie_detail)
             c_rating.append(get_answer(answer_json, user[0], movie_detail[0]))
             e_rating.append(rating)
-            netflix_print(w, str(rating))
+            netflix_print(w, str(round(rating, 1)))
         else:
             movie_detail = user[1]
             netflix_print(w, str(movie_detail[0])+":")
