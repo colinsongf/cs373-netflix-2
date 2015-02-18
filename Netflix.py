@@ -9,7 +9,7 @@
 import json
 from numpy import mean, sqrt, square, subtract
 
-PRINT=True
+#PRINT=True
 
 # ------------
 # netflix_read
@@ -189,7 +189,8 @@ def netflix_print (w, s) :
     Print string in writer
     Input: w writer, s string
     """
-    if (PRINT):
+    assert type(s) == str
+    if (True):
         w.write(s + "\n")
 
 # -------------

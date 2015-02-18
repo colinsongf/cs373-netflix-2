@@ -19,7 +19,7 @@ movie_cache_file = "../caches/moviecache.json"
 movie_cache = json.load(open(movie_cache_file))
 
 answer_cache_file = "../caches/pma459-answersCache.json"
-answer_cache = json.loads(open(answer_cache_file))
+answer_cache = json.loads(open(answer_cache_file).read())
 
 """
 	m : movie id
