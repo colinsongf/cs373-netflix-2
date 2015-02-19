@@ -9,8 +9,6 @@
 import json
 from numpy import mean, sqrt, square, subtract
 
-#PRINT=True
-
 # ------------
 # netflix_read
 # ------------
