@@ -23,23 +23,32 @@ class TestNetflix (TestCase) :
 # read
 # ----
     def test_read (self) :
-        s = "1024:\n"
-        movie_cache = json.dumps({"3382": {"count": 475, "average": 2.9642105263157896, "period": "1990"}})
+        s = "3382:\n"
+        movie_cache = json.loads('{"3382": {"count": 475, "average": 2.9642105263157896, "period": "1990"}}')
         i = netflix_read(movie_cache, s)
-        self.assertEqual(i, -1)
+        self.assertIs(type(i), tuple)
+        self.assertEqual(i[0], -1)
+        self.assertEqual(i[1], (3382, 2.9642105263157896, "1990"))
+
 
     def test_read_1 (self) :
-        s = "1024:1024\n"
-        movie_cache = json.dumps({"1": {"count": 1, "average": 1, "period": "1990"}})
+        s = "10101\n"
+        movie_cache = json.loads('{"1": {"count": 1, "average": 1, "period": "1990"}}')
         i = netflix_read(movie_cache, s)
-        self.assertEqual(i, -1)
+        self.assertIs(type(i), tuple)
+        self.assertEqual(i[0], "10101")
+        self.assertEqual(i[1], -1)
+
 
     def test_read_2 (self) :
-        s = "10101\n"
-        movie_cache = json.dumps({"1": {"count": 1, "average": 1, "period": "1990"}})
+        s = "4445:\n"
+        movie_cache = json.loads('{"8091": {"count": 2127, "average": 4.213916314057358, "period": "2000"}, "4445": {"count": 212, "average": 3.4245283018867925, "period": "2000"}}')
         i = netflix_read(movie_cache, s)
-        self.assertEqual(i, 10101)
+        self.assertIs(type(i), tuple)
+        self.assertEqual(i[0], -1)
+        self.assertEqual(i[1], (4445, 3.4245283018867925, "2000"))
 
+"""
 # -----
 # print
 # -----
@@ -78,6 +87,7 @@ class TestNetflix (TestCase) :
         r = StringIO()
         w = StringIO()
         netflix_solve(r, w)
+"""
 
 # ----
 # main
