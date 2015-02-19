@@ -19,7 +19,7 @@ def netflix_read (movie_json, s) :
     """
     Read line, determine movie or user
     Input: movie_json a pre computed file with information about all the movies, s a string
-    Return: Tuple for a movie (-1, movie_details) and for a used (user_id, -1)
+    Return: Tuple for a movie (-1, movie_details) and for a user (user_id, -1)
     """
     if ":" in s :
         current_movie = int(s.split(":")[0])
@@ -72,7 +72,7 @@ def read_movie_json () :
 def get_movie_details (movie_json, current_movie) :
     """
     Gets movie's average rating and period 
-    Input: movie_jdon containing the cache, current_movie int of the current movie
+    Input: movie_json containing the cache, current_movie int of the current movie
     Return: tuple with current movie, rating average and period
     """
     assert str(current_movie) in movie_json

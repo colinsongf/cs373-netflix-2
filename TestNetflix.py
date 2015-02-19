@@ -101,6 +101,128 @@ class TestNetflix (TestCase) :
         v = netflix_eval(customer_cache, customer_id, movie_details)
         self.assertEqual(v, 3.2978139534883724)
 
+# -----
+# read_<customer/answer/movie>_json
+# -----
+    """
+    def test_read_json (self) :
+        d = read_customer_json()
+        self.assertIs(type(d), dict)
+
+    def test_read_json_1 (self) :
+        d = read_answer_json()
+        self.assertIs(type(d), dict)
+
+    def test_read_json_1 (self) :
+        d = read_movie_json()
+        self.assertIs(type(d), dict)
+    """
+
+# -----
+# get_movie_details
+# -----
+    def test_movie_details (self) :
+        s = 3382
+        movie_cache = json.loads('{"3382": {"count": 475, "average": 2.9642105263157896, "period": "1990"}}')
+        i = get_movie_details(movie_cache, s)
+        self.assertIs(type(i), tuple)
+        self.assertEqual(i, (3382, 2.9642105263157896, "1990"))
+    
+    def test_movie_details_1 (self) :
+        s = 8091
+        movie_cache = json.loads('{"8091": {"count": 2127, "average": 4.213916314057358, "period": "2000"}, "4445": {"count": 212, "average": 3.4245283018867925, "period": "2000"}}')
+        i = get_movie_details(movie_cache, s)
+        self.assertIs(type(i), tuple)
+        self.assertEqual(i, (8091, 4.213916314057358, "2000"))
+    
+    def test_movie_details_2 (self) :
+        s = 1
+        movie_cache = json.loads('{"1": {"count": 1, "average": 1.000000, "period": "1990"}}')
+        i = get_movie_details(movie_cache, s)
+        self.assertIs(type(i), tuple)
+        self.assertEqual(i, (1, 1.000000, "1990"))
+
+
+#------
+# get_user_avg_rating
+#------
+    def test_user_avg (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 4.451553930530162, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        avg = get_user_avg_rating(customer_cache, customer_id)
+        self.assertEqual(avg, 4.451553930530162)
+    
+    def test_user_avg_1 (self) :
+        customer_cache = json.loads('{"1": {"count": 1, "1990": [1.00000, 1], "1980": [1.000000, 1], "average": 1.000000}}')
+        customer_id = "1"
+        avg = get_user_avg_rating(customer_cache, customer_id)
+        self.assertEqual(avg, 1.000000)
+    
+    def test_user_avg_2 (self) :
+        customer_cache = json.loads('{"4": {"average": 4.322}}')
+        customer_id = "4"
+        avg = get_user_avg_rating(customer_cache, customer_id)
+        self.assertEqual(avg, 4.322)
+        
+#-------
+# get_user_period_avg
+#-------
+
+    def test_user_period_avg (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 4.451553930530162, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        movie_details = (1, 1.000000, "1990")
+        avg = get_user_period_avg(customer_cache, customer_id, movie_details)
+        self.assertEqual(avg, 4.348178137651822)
+    
+
+    def test_user_period_avg_1 (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1980": [4.591304347826085, 115], "average": 4.451553930530162, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        movie_details = (1, 1.000000, "1990")
+        avg = get_user_period_avg(customer_cache, customer_id, movie_details)
+        self.assertEqual(avg, 4.451553930530162)
+    
+    def test_user_period_avg_2 (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 4.451553930530162, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        movie_details = (1, 1.000000, "1980")
+        avg = get_user_period_avg(customer_cache, customer_id, movie_details)
+        self.assertEqual(avg, 4.591304347826085)
+   
+    def test_user_period_avg_3 (self) :
+        customer_cache = json.loads('{"1": {"count": 547, "1990": [0, 247], "1980": [4.591304347826085, 115], "average": 4.451553930530162, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "1"
+        movie_details = (1, 1.000000, "1990")
+        avg = get_user_period_avg(customer_cache, customer_id, movie_details)
+        self.assertEqual(avg, 0)
+    
+    def test_user_period_avg_4 (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 1, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        movie_details = (1, 1.000000, "1700")
+        avg = get_user_period_avg(customer_cache, customer_id, movie_details)
+        self.assertEqual(avg, 1)
+    
+#-------
+# average_factor
+#-------
+    def test_average_factor (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 4.451553930530162, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        avg = average_factor(customer_cache, customer_id)
+        self.assertEqual(avg, 1.08)
+
+    def test_average_factor_1 (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 3.7400892348473897, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        avg = average_factor(customer_cache, customer_id)
+        self.assertEqual(avg, 1.03)
+
+
+
+
+
 """
 # -----
 # solve
