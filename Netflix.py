@@ -39,8 +39,11 @@ def read_customer_json () :
     Loads the user_cache created by kk24268
     Return: dictionary of the user_cache
     """
-    customer_cache_file = "caches/cache.json"
-    return json.loads(open(customer_cache_file).read())
+    customer_cache_file = "/u/mck782/netflix-tests/kk24268-AvgUseCache.json"
+    file_read = open(customer_cache_file, "r")
+    json_obj = json.loads(file_read.read())
+    file_read.close()
+    return json_obj
 
 # ------------------
 # read_answer_json
@@ -51,8 +54,12 @@ def read_answer_json () :
     Loads the answer_cache created by kk24268
     Return: dictionary of the answer_cache
     """
-    answer_cache_file = "caches/pma459-answersCache.json"
-    return json.loads(open(answer_cache_file).read())
+    answer_cache_file = "/u/mck782/netflix-tests/pma459-answersCache.json"
+    file_read = open(answer_cache_file, "r")
+    json_obj = json.loads(file_read.read())
+    file_read.close()
+    return json_obj
+
 # ---------------
 # read_movie_json
 # ---------------
@@ -62,8 +69,11 @@ def read_movie_json () :
     Loads the movie_cache created by kk24268
     Return: dictionary of the movie_cache
     """
-    movie_cache_file = "caches/moviecache.json"
-    return json.loads(open(movie_cache_file).read())
+    movie_cache_file = "/u/mck782/netflix-tests/kk24268-AvgMovieCache.json"
+    file_read = open(movie_cache_file, "r")
+    json_obj = json.loads(file_read.read())
+    file_read.close()
+    return json_obj
 
 # -----------------
 # get_movie_details
