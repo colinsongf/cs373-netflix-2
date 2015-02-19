@@ -76,6 +76,11 @@ class TestNetflix (TestCase) :
         netflix_print(w, str(1))
         self.assertEqual(w.getvalue(), "1\n")
 
+    def test_print_3 (self) :
+        w = StringIO()
+        netflix_print(w, "abc")
+        self.assertEqual(w.getvalue(), "abc\n")
+
 # ----
 # eval WARNING! These values will change if you refine the algorithm.
 # ----
@@ -104,7 +109,7 @@ class TestNetflix (TestCase) :
 # -----
 # read_<customer/answer/movie>_json
 # -----
-    """
+
     def test_read_json (self) :
         d = read_customer_json()
         self.assertIs(type(d), dict)
@@ -116,7 +121,6 @@ class TestNetflix (TestCase) :
     def test_read_json_1 (self) :
         d = read_movie_json()
         self.assertIs(type(d), dict)
-    """
 
 # -----
 # get_movie_details
@@ -237,19 +241,92 @@ class TestNetflix (TestCase) :
         avg = average_factor(customer_cache, customer_id)
         self.assertEqual(avg, 0.98)
 
+#-------
+# rmse
+#-------
+    def test_rmse (self) :
+        e = [1, 1, 1, 1]
+        c = [1, 1, 1, 1]
+        r = rmse(e, c)
+        self.assertEqual(r, 0)
+    
+    def test_rmse_1 (self) :
+        e = [1, 1, 1, 1]
+        c = [2, 2, 2, 2]
+        r = rmse(e, c)
+        self.assertEqual(r, 1.0)
 
+    def test_rmse_2 (self) :
+        e = [2, 2, 2, 2]
+        c = [1, 1, 1, 1]
+        r = rmse(e, c)
+        self.assertEqual(r, 1.0)
 
+    def test_rmse_3 (self) :
+        e = [1, 1, 1, 1]
+        c = [1, 2, 3, 4]
+        r = rmse(e, c)
+        self.assertEqual(r, 1.8700000000000001)
 
-"""
+    def test_rmse_4 (self) :
+        e = [1]
+        c = [1]
+        r = rmse(e, c)
+        self.assertEqual(r, 0)
+
+#-------
+# get_answer
+#-------
+    
+    def test_get_answer (self) :
+        answer_cache = json.loads('{"7643": {"1345754": 3, "326619": 4, "1716604": 4, "919032": 4}}')
+        customer_id = 919032
+        movie_id = 7643
+        r = get_answer(answer_cache, customer_id, movie_id)
+        self.assertEqual(r, 4)
+    
+    def test_get_answer_1 (self) :
+        answer_cache = json.loads('{"7643": {"1345754": 3, "326619": 4, "1716604": 4, "919032": 4}}')
+        customer_id = 1345754
+        movie_id = 7643
+        r = get_answer(answer_cache, customer_id, movie_id)
+        self.assertEqual(r, 3)
+
+    def test_get_answer_2 (self) :
+        answer_cache = json.loads('{"7643": {"1345754": 3, "326619": 4, "1716604": 4, "919032": 4}, "1": {"1345754": 3, "326619": 4, "1716604": 4, "919032": 5}}')
+        customer_id = 919032
+        movie_id = 1
+        r = get_answer(answer_cache, customer_id, movie_id)
+        self.assertEqual(r, 5)
+
+    def test_get_answer_3 (self) :
+        answer_cache = json.loads('{"7643": {"1345754": 3, "326619": 4, "1716604": 4, "919032": 4}, "1": {"1345754": 3, "326619": 4, "1716604": 4, "1": 0}}')
+        customer_id = 1
+        movie_id = 1
+        r = get_answer(answer_cache, customer_id, movie_id)
+        self.assertEqual(r, 0)
+
 # -----
 # solve
 # -----
 
     def test_solve (self) :
-        r = StringIO()
+        r = StringIO("1:\n30878\n14756\n2625019\n")
         w = StringIO()
         netflix_solve(r, w)
-"""
+        self.assertEqual(w.getvalue(), "1:\n3.8\n3.8\n3.2\nRMSE: 0.2\n")
+
+    def test_solve_1 (self) :
+        r = StringIO("1:\n30878\n14756\n2625019\n10:\n1952305\n1531863\n")
+        w = StringIO()
+        netflix_solve(r, w)
+        self.assertEqual(w.getvalue(), "1:\n3.8\n3.8\n3.2\n10:\n3.2\n3.1\nRMSE: 0.19\n")
+
+    def test_solve_2 (self) :
+        r = StringIO("10:\n1952305\n")
+        w = StringIO()
+        netflix_solve(r, w)
+        self.assertEqual(w.getvalue(), "10:\n3.2\nRMSE: 0.22\n")
 
 # ----
 # main
@@ -257,3 +334,4 @@ class TestNetflix (TestCase) :
 
 if __name__ == "__main__" :
 	main()
+
