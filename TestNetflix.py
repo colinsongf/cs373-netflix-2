@@ -219,6 +219,23 @@ class TestNetflix (TestCase) :
         avg = average_factor(customer_cache, customer_id)
         self.assertEqual(avg, 1.03)
 
+    def test_average_factor_2 (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 3.555555555555555, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        avg = average_factor(customer_cache, customer_id)
+        self.assertEqual(avg, 1.0)
+
+    def test_average_factor_3 (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 3.60, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        avg = average_factor(customer_cache, customer_id)
+        self.assertEqual(avg, 1.0)
+
+    def test_average_factor_4 (self) :
+        customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average":1.2555655555555, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
+        customer_id = "378466"
+        avg = average_factor(customer_cache, customer_id)
+        self.assertEqual(avg, 0.98)
 
 
 
