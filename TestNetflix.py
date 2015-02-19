@@ -48,7 +48,7 @@ class TestNetflix (TestCase) :
         self.assertEqual(i[0], -1)
         self.assertEqual(i[1], (4445, 3.4245283018867925, "2000"))
 
-"""
+
 # -----
 # print
 # -----
@@ -67,7 +67,7 @@ class TestNetflix (TestCase) :
         w = StringIO()
         netflix_print(w, str(1))
         self.assertEqual(w.getvalue(), "1\n")
-
+"""
 # ----
 # eval
 # ----
