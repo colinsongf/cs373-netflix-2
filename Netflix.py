@@ -127,6 +127,7 @@ def average_factor (customer_json, customer_id) :
     """
     # improvement from 0.9741 to 0.9598
     assert customer_id in customer_json
+    assert "average" in customer_json[customer_id]
     avg = customer_json[customer_id]["average"]
     if(avg > 4) :
         return 1.08
