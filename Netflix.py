@@ -166,23 +166,6 @@ def average_factor (customer_json, customer_id, movie_detail) :
         factor += 0.98
     return factor
 
-
-# -----------------
-# period_avg_fit
-# -----------------
-def period_average_fit (movie_detail) :
-    """
-    Idea: y = (-0.00566)*x + (14.4)
-          x = period, y = average rating
-    Input: movie_json and movie_id
-    Return: period factor based on prior study
-    """
-    if movie_detail[2] == 'NULL':
-        return -1
-    else:
-        return ((-0.00566)*int(movie_detail[2]) + (14.4))
-
-
 # -----------------
 # evaluating rating
 # -----------------
