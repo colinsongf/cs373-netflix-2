@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Netflix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Netflix</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/v/filer4b/v38q001/kk8/CS373/p2/cs373-netflix/Netflix.py">/v/filer4b/v38q001/kk8/CS373/p2/cs373-netflix/Netflix.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;-----------------------------<br>
+#&nbsp;projects/netflix/Netflix.py<br>
+#&nbsp;Copyright&nbsp;(C)&nbsp;2015<br>
+#&nbsp;Keerthana&nbsp;Kumar,&nbsp;Fatimah&nbsp;Zohra<br>
+#&nbsp;-----------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-average_factor"><strong>average_factor</strong></a>(customer_json, customer_id, movie_detail)</dt><dd><tt>Idea:&nbsp;if&nbsp;the&nbsp;overall&nbsp;average&nbsp;is&nbsp;lower&nbsp;for&nbsp;large&nbsp;counts&nbsp;then&nbsp;the&nbsp;factor&nbsp;should&nbsp;be&nbsp;&lt;&nbsp;0,&nbsp;else&nbsp;&gt;&nbsp;1<br>
+Input:&nbsp;customer_json&nbsp;the&nbsp;cache&nbsp;of&nbsp;users<br>
+Return:&nbsp;averaging&nbsp;factor&nbsp;based&nbsp;on&nbsp;prior&nbsp;study</tt></dd></dl>
+ <dl><dt><a name="-get_answer"><strong>get_answer</strong></a>(answer_json, customer_id, movie)</dt><dd><tt>Collects&nbsp;the&nbsp;correct&nbsp;answer&nbsp;from&nbsp;the&nbsp;answers_cache<br>
+Input:&nbsp;answer_json&nbsp;cache&nbsp;of&nbsp;the&nbsp;answers,&nbsp;customer_id&nbsp;int,&nbsp;movie&nbsp;int<br>
+Return:&nbsp;rating</tt></dd></dl>
+ <dl><dt><a name="-get_movie_details"><strong>get_movie_details</strong></a>(movie_json, current_movie)</dt><dd><tt>Gets&nbsp;movie's&nbsp;average&nbsp;rating&nbsp;and&nbsp;period<br>
+Input:&nbsp;movie_json&nbsp;containing&nbsp;the&nbsp;cache,&nbsp;current_movie&nbsp;int&nbsp;of&nbsp;the&nbsp;current&nbsp;movie<br>
+Return:&nbsp;tuple&nbsp;with&nbsp;current&nbsp;movie,&nbsp;rating&nbsp;average&nbsp;and&nbsp;period</tt></dd></dl>
+ <dl><dt><a name="-get_user_avg_rating"><strong>get_user_avg_rating</strong></a>(customer_json, customer_id)</dt><dd><tt>Gets&nbsp;the&nbsp;average&nbsp;rating&nbsp;of&nbsp;all&nbsp;the&nbsp;movies&nbsp;rated&nbsp;by&nbsp;the&nbsp;user<br>
+Input:&nbsp;customer_json&nbsp;the&nbsp;cache&nbsp;of&nbsp;the&nbsp;users,&nbsp;customer_id&nbsp;string&nbsp;of&nbsp;the&nbsp;user<br>
+Return:&nbsp;average&nbsp;customer&nbsp;rating</tt></dd></dl>
+ <dl><dt><a name="-get_user_period_avg"><strong>get_user_period_avg</strong></a>(customer_json, customer_id, movie_detail)</dt><dd><tt>Gets&nbsp;the&nbsp;average&nbsp;rating&nbsp;of&nbsp;all&nbsp;the&nbsp;movies&nbsp;rated&nbsp;by&nbsp;the&nbsp;user&nbsp;in&nbsp;the&nbsp;period&nbsp;or&nbsp;calls&nbsp;get_user_avg_rating&nbsp;if&nbsp;period&nbsp;doesn't&nbsp;exist<br>
+Input:&nbsp;customer_json&nbsp;the&nbsp;cache&nbsp;of&nbsp;the&nbsp;users,&nbsp;customer_id&nbsp;string&nbsp;of&nbsp;the&nbsp;user,&nbsp;movie_detail<br>
+Return:&nbsp;average&nbsp;customer&nbsp;rating&nbsp;of&nbsp;period/user</tt></dd></dl>
+ <dl><dt><a name="-netflix_eval"><strong>netflix_eval</strong></a>(json, i, movie_detail)</dt><dd><tt>Evaluate&nbsp;the&nbsp;estimated&nbsp;rating&nbsp;for&nbsp;a&nbsp;user<br>
+Input:&nbsp;json&nbsp;&nbsp;with&nbsp;the&nbsp;user&nbsp;information,&nbsp;customer_id,&nbsp;movie&nbsp;detail&nbsp;-&nbsp;tuple<br>
+Return:&nbsp;estimated&nbsp;rating</tt></dd></dl>
+ <dl><dt><a name="-netflix_print"><strong>netflix_print</strong></a>(w, s)</dt><dd><tt>Print&nbsp;string&nbsp;in&nbsp;writer<br>
+Input:&nbsp;w&nbsp;writer,&nbsp;s&nbsp;string</tt></dd></dl>
+ <dl><dt><a name="-netflix_read"><strong>netflix_read</strong></a>(movie_json, s)</dt><dd><tt>Read&nbsp;line,&nbsp;determine&nbsp;movie&nbsp;or&nbsp;user<br>
+Input:&nbsp;movie_json&nbsp;a&nbsp;pre&nbsp;computed&nbsp;file&nbsp;with&nbsp;information&nbsp;about&nbsp;all&nbsp;the&nbsp;movies,&nbsp;s&nbsp;a&nbsp;string<br>
+Return:&nbsp;Tuple&nbsp;for&nbsp;a&nbsp;movie&nbsp;(-1,&nbsp;movie_details)&nbsp;and&nbsp;for&nbsp;a&nbsp;user&nbsp;(user_id,&nbsp;-1)</tt></dd></dl>
+ <dl><dt><a name="-netflix_solve"><strong>netflix_solve</strong></a>(r, w)</dt><dd><tt>Main&nbsp;function&nbsp;solver<br>
+Input:&nbsp;r&nbsp;a&nbsp;reader,&nbsp;w&nbsp;a&nbsp;writer</tt></dd></dl>
+ <dl><dt><a name="-period_average_fit"><strong>period_average_fit</strong></a>(movie_detail)</dt><dd><tt>Idea:&nbsp;y&nbsp;=&nbsp;(-0.00566)*x&nbsp;+&nbsp;(14.4)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;=&nbsp;period,&nbsp;y&nbsp;=&nbsp;average&nbsp;rating<br>
+Input:&nbsp;movie_json&nbsp;and&nbsp;movie_id<br>
+Return:&nbsp;period&nbsp;factor&nbsp;based&nbsp;on&nbsp;prior&nbsp;study</tt></dd></dl>
+ <dl><dt><a name="-read_answer_json"><strong>read_answer_json</strong></a>()</dt><dd><tt>Loads&nbsp;the&nbsp;answer_cache&nbsp;created&nbsp;by&nbsp;kk24268<br>
+Return:&nbsp;dictionary&nbsp;of&nbsp;the&nbsp;answer_cache</tt></dd></dl>
+ <dl><dt><a name="-read_customer_json"><strong>read_customer_json</strong></a>()</dt><dd><tt>Loads&nbsp;the&nbsp;user_cache&nbsp;created&nbsp;by&nbsp;kk24268<br>
+Return:&nbsp;dictionary&nbsp;of&nbsp;the&nbsp;user_cache</tt></dd></dl>
+ <dl><dt><a name="-read_movie_json"><strong>read_movie_json</strong></a>()</dt><dd><tt>Loads&nbsp;the&nbsp;movie_cache&nbsp;created&nbsp;by&nbsp;kk24268<br>
+Return:&nbsp;dictionary&nbsp;of&nbsp;the&nbsp;movie_cache</tt></dd></dl>
+ <dl><dt><a name="-rmse"><strong>rmse</strong></a>(e, c)</dt><dd><tt>Calculates&nbsp;the&nbsp;root&nbsp;mean&nbsp;square&nbsp;error&nbsp;between&nbsp;two&nbsp;lists<br>
+Input:&nbsp;e&nbsp;list,&nbsp;c&nbsp;list<br>
+Return:&nbsp;rmse&nbsp;float</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>sqrt</strong> = &lt;ufunc 'sqrt'&gt;<br>
+<strong>square</strong> = &lt;ufunc 'square'&gt;<br>
+<strong>subtract</strong> = &lt;ufunc 'subtract'&gt;</td></tr></table>
+</body></html>

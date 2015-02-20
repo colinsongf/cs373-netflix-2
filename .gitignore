@@ -3,4 +3,4 @@
 # ignores files that gcov generates
 __pycache__
 *.pyc
-probe.out
+probe*.out

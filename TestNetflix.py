@@ -90,7 +90,7 @@ class TestNetflix (TestCase) :
         customer_id = "378466"
         movie_details = (10825, 4.285965942454492, "1990")
         v = netflix_eval(customer_cache, customer_id, movie_details)
-        self.assertEqual(v, 4.66243780325741)
+        self.assertEqual(v, 4.835120684859536)
 
     def test_eval_1 (self) :
         customer_cache = json.loads('{"1642779": {"count": 66, "1990": [4.222222222222222, 18], "1980": [4.6, 5], "average": 4.393939393939393, "1970": [4.8, 5], "2000": [4.394736842105263, 38]}}')
@@ -214,31 +214,36 @@ class TestNetflix (TestCase) :
     def test_average_factor (self) :
         customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 4.451553930530162, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
         customer_id = "378466"
-        avg = average_factor(customer_cache, customer_id)
+        movie_details = (1, 1.000000, "1990")
+        avg = average_factor(customer_cache, customer_id, movie_details)
         self.assertEqual(avg, 1.08)
 
     def test_average_factor_1 (self) :
         customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 3.7400892348473897, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
         customer_id = "378466"
-        avg = average_factor(customer_cache, customer_id)
+        movie_details = (1, 1.000000, "1990")
+        avg = average_factor(customer_cache, customer_id, movie_details)
         self.assertEqual(avg, 1.03)
 
     def test_average_factor_2 (self) :
         customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 3.555555555555555, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
         customer_id = "378466"
-        avg = average_factor(customer_cache, customer_id)
+        movie_details = (1, 3.7, "1990")
+        avg = average_factor(customer_cache, customer_id, movie_details)
         self.assertEqual(avg, 1.0)
 
     def test_average_factor_3 (self) :
         customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average": 3.60, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
         customer_id = "378466"
-        avg = average_factor(customer_cache, customer_id)
+        movie_details = (1, 3.7, "1990")
+        avg = average_factor(customer_cache, customer_id, movie_details)
         self.assertEqual(avg, 1.0)
 
     def test_average_factor_4 (self) :
         customer_cache = json.loads('{"378466": {"count": 547, "1990": [4.348178137651822, 247], "1980": [4.591304347826085, 115], "average":1.2555655555555, "1960": [4.769230769230769, 13], "1970": [4.696969696969697, 33], "2000": [4.423357664233579, 137], "1950": [5.0, 2]}}')
         customer_id = "378466"
-        avg = average_factor(customer_cache, customer_id)
+        movie_details = (1, 3.7, "1990")
+        avg = average_factor(customer_cache, customer_id, movie_details)
         self.assertEqual(avg, 0.98)
 
 #-------
@@ -266,7 +271,7 @@ class TestNetflix (TestCase) :
         e = [1, 1, 1, 1]
         c = [1, 2, 3, 4]
         r = rmse(e, c)
-        self.assertEqual(r, 1.8700000000000001)
+        self.assertEqual(r, 1.8708286933869707)
 
     def test_rmse_4 (self) :
         e = [1]
@@ -314,7 +319,7 @@ class TestNetflix (TestCase) :
         r = StringIO("1:\n30878\n14756\n2625019\n")
         w = StringIO()
         netflix_solve(r, w)
-        self.assertEqual(w.getvalue(), "1:\n3.8\n3.8\n3.2\nRMSE: 0.2\n")
+        self.assertEqual(w.getvalue(), "1:\n3.8\n3.8\n3.2\nRMSE: 0.20\n")
 
     def test_solve_1 (self) :
         r = StringIO("1:\n30878\n14756\n2625019\n10:\n1952305\n1531863\n")
@@ -326,7 +331,7 @@ class TestNetflix (TestCase) :
         r = StringIO("10:\n1952305\n")
         w = StringIO()
         netflix_solve(r, w)
-        self.assertEqual(w.getvalue(), "10:\n3.2\nRMSE: 0.22\n")
+        self.assertEqual(w.getvalue(), "10:\n3.2\nRMSE: 0.21\n")
 
 # ----
 # main

@@ -135,6 +135,7 @@ def average_factor (customer_json, customer_id, movie_detail) :
     Return: averaging factor based on prior study
     """
     # improvement from 0.9741 to 0.9598
+    assert len(movie_detail) == 3
     assert customer_id in customer_json
     assert "average" in customer_json[customer_id]
     avg = customer_json[customer_id]["average"]
@@ -193,7 +194,7 @@ def rmse (e, c) :
     Return: rmse float
     """
     assert len(e) == len(c)
-    return round(sqrt(mean(square(subtract(e,c)))), 2)
+    return sqrt(mean(square(subtract(e,c))))
 
 # ----------
 # get_answer
@@ -265,5 +266,7 @@ def netflix_solve (r, w) :
             netflix_print(w, str(movie_detail[0])+":")
 
 
+    dec, flo = str(rmse(e_rating, c_rating)).split(".")
+    rms = '.'.join((dec, flo[0:2]))
 
-    netflix_print(w, "RMSE: "+ str(rmse(e_rating, c_rating)))
+    netflix_print(w, "RMSE: "+ rms)
