@@ -26,11 +26,10 @@ movie_cache = json.load(open(movie_cache_file))
 
     x1 : movie period
     y1 : movie avg
-
     x2 : movie count
-    y2 : movie avg
-"""
 
+"""
+"""
 x = []
 y = []
 count = 0
@@ -44,31 +43,38 @@ for customer_key, customer_data in customer_json.iteritems():
         elif(count_key == "average"):
             y.append(count_value)
 
+"""
 x1 = []
 y1 = []
-count = 0
+x2 = []
+
+c = 0
 for m, _ in movie_cache.iteritems():
-    if count < 750:
+    if c < 750:
         avg = movie_cache[m]["average"]
         period = movie_cache[m]["period"]
+        count = movie_cache[m]["count"]
         x1.append(period)
         y1.append(avg)
-        count += 1
+        x2.append(count)
+        c += 1
     else :
         break
 
 #--------------
 #    Trace
 #--------------
-trace0 = Scatter(x=x, y=y)
-trace1 = Scatter(x=x1, y=y1)
+#trace0 = Scatter(x=x, y=y)
+#trace1 = Scatter(x=x1, y=y1)
+trace2 = Scatter(x=x2, y=y1)
 
 
 #--------------
 #    Data
 #--------------
-data = Data([trace0])
-data1 = Data([trace1])
+#data = Data([trace0])
+#data1 = Data([trace1])
+data2 = Data([trace2])
 
 
 #--------------
@@ -102,15 +108,31 @@ layout1 = Layout(
     )
 )
 
+layout2 = Layout(
+    title='Movie Count x Movie Average',
+    xaxis=XAxis(
+        title='Count',
+        showgrid=True,
+        showline=True,
+    ),
+    yaxis=YAxis(
+        title='Average',
+        showgrid=True,
+        showline='True'
+    )
+)
+
 #--------------
 #    Figures
 #--------------
-fig = Figure(data=data, layout=layout0)
-fig1 = Figure(data=data1, layout=layout1)
+#fig = Figure(data=data, layout=layout0)
+#fig1 = Figure(data=data1, layout=layout1)
+fig2 = Figure(data=data2, layout=layout2)
 
 
 #--------------
 #    Plots
 #--------------
-plot_url = py.plot(fig, filename='customer-count-avg')
-plot_url = py.plot(fig1, filename='movie-period-avg')
+#plot_url = py.plot(fig, filename='customer-count-avg')
+#plot_url = py.plot(fig1, filename='movie-period-avg')
+plot_url = py.plot(fig2, filename='movie-count-avg')

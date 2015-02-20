@@ -8,6 +8,7 @@
 
 import json
 from numpy import mean, sqrt, square, subtract
+#from math import sqrt
 
 # ------------
 # netflix_read
@@ -69,7 +70,7 @@ def read_movie_json () :
 
 def get_movie_details (movie_json, current_movie) :
     """
-    Gets movie's average rating and period 
+    Gets movie's average rating and period
     Input: movie_json containing the cache, current_movie int of the current movie
     Return: tuple with current movie, rating average and period
     """
@@ -86,10 +87,10 @@ def get_movie_details (movie_json, current_movie) :
 # get_user_avg_rating
 # -------------------
 
-def get_user_avg_rating (customer_json, customer_id) : 
+def get_user_avg_rating (customer_json, customer_id) :
     """
     Gets the average rating of all the movies rated by the user
-    Input: customer_json the cache of the users, customer_id string of the user  
+    Input: customer_json the cache of the users, customer_id string of the user
     Return: average customer rating
     """
     assert customer_id in customer_json
@@ -103,38 +104,73 @@ def get_user_avg_rating (customer_json, customer_id) :
 def get_user_period_avg (customer_json, customer_id, movie_detail) :
     """
     Gets the average rating of all the movies rated by the user in the period or calls get_user_avg_rating if period doesn't exist
-    Input: customer_json the cache of the users, customer_id string of the user, movie_detail 
+    Input: customer_json the cache of the users, customer_id string of the user, movie_detail
     Return: average customer rating of period/user
     """
     assert len(movie_detail) == 3
     assert customer_id in customer_json
     if movie_detail[2] in customer_json[customer_id] :
         return customer_json[customer_id][movie_detail[2]][0]
-    else : 
+    else :
         return get_user_avg_rating(customer_json, customer_id)
 
 # --------------
 # average_factor
 # --------------
 
-def average_factor (customer_json, customer_id) :
+def average_factor (customer_json, customer_id, movie_detail) :
     """
     Idea: if the overall average is lower for large counts then the factor should be < 0, else > 1
-    Input: customer_json the cache of users 
+    Input: customer_json the cache of users
     Return: averaging factor based on prior study
     """
     # improvement from 0.9741 to 0.9598
     assert customer_id in customer_json
     assert "average" in customer_json[customer_id]
     avg = customer_json[customer_id]["average"]
+    factor = 0
+    if movie_detail[2] != "NULL":
+        period = int(movie_detail[2])
+    else:
+        period = 0
+
+    if period == 2000 and int(movie_detail[1]) > 3.0:
+        factor = 0.06
+    elif period == 1990 and int(movie_detail[1]) > 3.0:
+        factor = 0.04
+    elif period == 1940 and int(movie_detail[1]) > 3.0:
+        factor = 0.05
+    elif period == 1930 and int(movie_detail[1]) > 3.0:
+        factor = 0.05
+    elif period == 1920 and int(movie_detail[1]) > 3.0:
+        factor = 0.15
+
     if(avg > 4) :
-        return 1.08
+        factor += 1.08
     elif(avg > 3.60) :
-        return 1.03
+        factor += 1.03
     elif(avg > 3.50) :
-        return 1.0
+        factor += 1.0
     else :
-        return 0.98
+        factor += 0.98
+    return factor
+
+
+# -----------------
+# period_avg_fit
+# -----------------
+def period_average_fit (movie_detail) :
+    """
+    Idea: y = (-0.00566)*x + (14.4)
+          x = period, y = average rating
+    Input: movie_json and movie_id
+    Return: period factor based on prior study
+    """
+    if movie_detail[2] == 'NULL':
+        return -1
+    else:
+        return ((-0.00566)*int(movie_detail[2]) + (14.4))
+
 
 # -----------------
 # evaluating rating
@@ -172,11 +208,11 @@ def netflix_eval (json, i, movie_detail) :
     """
     Evaluate the estimated rating for a user
     Input: json  with the user information, customer_id, movie detail - tuple
-    Return: estimated rating 
+    Return: estimated rating
     """
     assert len(movie_detail) == 3
     estimated_rating_based_on_period = (get_user_period_avg(json, i, movie_detail) + movie_detail[1])/2
-    estimated_rating_factoring_in_count_average = estimated_rating_based_on_period * average_factor(json, i)
+    estimated_rating_factoring_in_count_average = estimated_rating_based_on_period * average_factor(json, i, movie_detail)
     return estimated_rating_factoring_in_count_average
 
 # -------------
