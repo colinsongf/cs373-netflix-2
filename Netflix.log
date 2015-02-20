@@ -1,0 +1,263 @@
+commit a0858d273409486844fb88e1505a5a86f0a55a64
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Thu Feb 19 21:20:08 2015 -0600
+
+    Closed #20: Netflix.html done
+
+commit 6ab92ffc9e9a95ce7bab13341a64f57b837ef723
+Merge: 9b26274 9839e2d
+Author: Fatimah Zohra <fzohra92@utexas.edu>
+Date:   Thu Feb 19 19:28:41 2015 -0600
+
+    Merge branch 'master' of https://github.com/keerthanakumar/cs373-netflix
+
+commit 9b2627410959b06cae806d76208c016f282777bc
+Author: Fatimah Zohra <fzohra92@utexas.edu>
+Date:   Thu Feb 19 19:28:36 2015 -0600
+
+    made minor changes to the algorithm
+
+commit 9839e2d46ab7be26157ae694c1e58503525e4c81
+Merge: 9cbc0b9 ca2459f
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Thu Feb 19 13:09:41 2015 -0600
+
+    Changes are not conflicting
+    Merge branch 'master' of github.com:keerthanakumar/cs373-netflix
+
+commit 9cbc0b9bc6bbec3bf2fb0a766569583590b90ad9
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Thu Feb 19 13:08:57 2015 -0600
+
+    Closed: #25: Fixed the resource warning
+
+commit ca2459f2e4617c8045a299e13eabe5789eb9f212
+Author: Fatimah Zohra <fzohra92@utexas.edu>
+Date:   Thu Feb 19 11:40:04 2015 -0600
+
+    added graphs with best fit lines
+
+commit 53b1511aac472646305de45a204052f34f22f37f
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 22:49:53 2015 -0600
+
+    Closed #23 : coverage report generated for test cases
+
+commit a1b69b7ce3cbf5b68d38b8c135f1e9675296fa68
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 22:21:05 2015 -0600
+
+    Closed #3: Completed Test cases
+
+commit 4733e7246d40b36afd2c81aeff6cbcf984936096
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 21:54:03 2015 -0600
+
+    added average_factor tests
+
+commit d6ffd048fc470c87930c7cd92e399389f77924d3
+Merge: 76175be d3fc879
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 21:48:22 2015 -0600
+
+    Merge branch 'master' of https://github.com/keerthanakumar/cs373-netflix
+
+commit 76175be6e7d5034f3303a61c77ca5e4a41816025
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 21:48:03 2015 -0600
+
+    updated unit test cases
+
+commit d3fc8791573ada0a64f84da51ae8ea7316806c28
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Wed Feb 18 21:44:22 2015 -0600
+
+    Added missing assert statement
+
+commit 33dbac1973414768a800e0d0380e1b855498c76a
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 21:06:05 2015 -0600
+
+    corrected netflix_eval test
+
+commit 53f15a51122043e5d7098857db1825f32a5ac50c
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 20:16:50 2015 -0600
+
+     netflix_print tests corrected
+
+commit dcac46775ea282d7e77e3abc8d5ee729afbc26f9
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 18 20:10:57 2015 -0600
+
+    netflix_read tests corrected
+
+commit 3e425effecc83d5e099d7a8125cd6f0054a6ecdb
+Merge: 478596e 370707e
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Wed Feb 18 15:23:05 2015 -0600
+
+    Merge branch 'master' of github.com:keerthanakumar/cs373-netflix
+
+commit 478596eb3bf4560944719d0bff50ef92be58f3e5
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Wed Feb 18 15:22:52 2015 -0600
+
+    Closed #21, fixed output
+
+commit 370707e254ceabfb794c50af357a4ab84bc8ce34
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Tue Feb 17 23:23:45 2015 -0600
+
+    Closed #14: generated 100 line acceptance tests with rmse 0.90
+
+commit 164974c84fb55fd21266ae8e9b578c53bca7e034
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Tue Feb 17 21:45:14 2015 -0600
+
+    Fixed cache issues
+
+commit 48073ca021bbb1c09566bceaebb0ca3196b2ef06
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Tue Feb 17 21:41:24 2015 -0600
+
+    deleted pma cache
+
+commit ad8664637363a0c377ee15fb267f23aac4d5a923
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Tue Feb 17 21:22:03 2015 -0600
+
+    Fixed output to have RMSE and 2 decimal places
+
+commit 728811c5fd6046e39cd4aacbd2845c49290a292a
+Merge: a375e6c 99901b3
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Tue Feb 17 21:09:51 2015 -0600
+
+    Merge branch 'master' of github.com:keerthanakumar/cs373-netflix
+
+commit a375e6cd2a83ae780b395de9c49c83532cae228f
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Tue Feb 17 21:09:07 2015 -0600
+
+    Closed #4: Added documentation
+
+commit 99901b36ecd23a975ad4530eef546d5a72c0b26b
+Author: Fatimah Zohra <fzohra92@utexas.edu>
+Date:   Tue Feb 17 21:07:42 2015 -0600
+
+    modified make_tests.py to only filter for data that exists in the probe data set + pushing pma459 cache
+
+commit 2b0c49a7cebcce6bf5f4051ca2e4fad0481c362b
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Tue Feb 17 20:24:04 2015 -0600
+
+    make_tests now generates acceptance tests. Generated sample RunNetflix.in
+
+commit 859b65163169c949ca9f50b3b02c0312458574d6
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Tue Feb 17 19:55:24 2015 -0600
+
+    Closed #13: Added asserts
+
+commit a44c54900e54a7a6d78f88fa3cb70b2ae8380754
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Tue Feb 17 19:31:29 2015 -0600
+
+    Closed #17 : no more global variables
+
+commit a3201f3dbd05f3b49a8800e9b593d1864759fd91
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Fri Feb 13 23:08:32 2015 -0600
+
+    why u no sql?
+
+commit ea288d977b53d0d61cee93eabeef7779de2078dc
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Fri Feb 13 22:54:46 2015 -0600
+
+    make_tests.py now searches caches for movie and customer edge cases. need to use the training set to create the m_c dict
+
+commit 007552718c166735116a61c8826453bd9f06a0d3
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Fri Feb 13 21:04:08 2015 -0600
+
+    Started writing a script to generate the acceptance tests
+
+commit ec79f62e96fa6168ff99499e8561995dff2290d7
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Fri Feb 13 20:12:49 2015 -0600
+
+    rearranged directory structure to make it more categorical and easier to navigate
+
+commit 896f03b05ae224901dc616b294520f220865c942
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Fri Feb 13 20:06:52 2015 -0600
+
+    Started writing unit tests for the Netflix.py functions. However, implementation of global variables is interfering with the correctness of the unittests
+
+commit 0dfa2bc91b260ac374933aa73b69f7250d150af6
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Fri Feb 13 13:39:09 2015 -0600
+
+    stared at graphs and refined intervals. rmse at 0.9598, but the function lacks mathematial accuracy
+
+commit 4948a412fb77f7d887beab75ff1250235ce09bf3
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Fri Feb 13 13:03:43 2015 -0600
+
+    added a factor_average() function for increasing/decreasing an estimated rating based on the customer rmse at 0.96
+
+commit 2111c8236ae8cc5a05c9945b08b0b9030003e80a
+Author: Fatimah Zohra <fzohra92@utexas.edu>
+Date:   Thu Feb 12 23:40:51 2015 -0600
+
+    graph showing plot of customer counts x average rating
+
+commit 4e841caefe0acad23be66965146ed122937ed73a
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Thu Feb 12 23:36:39 2015 -0600
+
+    added script plot.ly to analyze data. much to be analyzed
+
+commit f3bd2592bb50589c9a9601892d8e47f795ce4f93
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Thu Feb 12 13:56:32 2015 -0600
+
+    Netflix RMSE  0.9741641136786525
+
+commit 312eea0fc6a50212de1fa353a96a661fc0143257
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Thu Feb 12 13:33:46 2015 -0600
+
+    Closed #12, Optimized code to run faster Netflix
+
+commit 6e5a425de67dbd8331bfb0e5f39ff586c14c44e0
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Thu Feb 12 11:52:43 2015 -0600
+
+    Closed #1. #6, #9, #10, #11: Tasks completed
+
+commit 3227c42a19c5b6e3ae1bb54cb243c11d6d52c7ef
+Author: Fatimah Zohra <fzohra92@cs.utexas.edu>
+Date:   Wed Feb 11 19:12:48 2015 -0600
+
+    Closed #7 #8 Defined methods to get ratings from files
+
+commit bb00a314f76ae7e951c0562a74a148a9fa63e2ae
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Wed Feb 11 18:33:55 2015 -0600
+
+    Edited Netflix.py
+
+commit 20dcb14cae7b6e7db2b0ba41dcdf622c84a5a464
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Wed Feb 11 18:31:49 2015 -0600
+
+    Closed #5: Set up Netflix Engine
+
+commit d3d5e511e09dc9ba6b8b3cb1cab895f4d7bbf2b8
+Author: Keerthana Kumar <keerthana.kumar@gmail.com>
+Date:   Wed Feb 11 17:42:07 2015 -0600
+
+    First setup
